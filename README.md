@@ -73,7 +73,7 @@ function manageSchedulerGate() {
 }
 ````
 
-### 🧠 Backend-side: 15초 방어막 온디맨드 엣지 프록시
+### 🧠 Backend-side: 15초 만료 조건의 Supabase DB 캐시 분기 로직
 익스텐션의 크로스 오리진 요청을 허용하는 CORS 헤더 설정과 데이터 일관성을 지키는 캐시 만료 검증 로직입니다.
 
 ```typescript

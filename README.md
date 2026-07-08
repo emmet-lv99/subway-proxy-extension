@@ -119,8 +119,8 @@ self.ENV = {
 
 2. Supabase Edge Function 배포 및 환경 변수 등록
 * Supabase 콘솔에서 quick-api 이름으로 새로운 Edge Function을 생성하고 코드를 적용합니다.
-  ````javascript
-  import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
+````javascript
+ import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
 
 const SEOUL_API_KEY = Deno.env.get("SEOUL_API_KEY") ?? ""
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? ""
@@ -208,7 +208,7 @@ Deno.serve(async (req) => {
     )
   }
 })
-  ````
+````
 * Function Settings -> Secrets 메뉴에 SEOUL_API_KEY 이름으로 서울 데이터 광장에서 발급받은 본인의 API Key를 등록합니다.
 
 ### 🛒 Production Release Justification

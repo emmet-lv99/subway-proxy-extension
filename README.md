@@ -83,7 +83,7 @@ if (req.method === "OPTIONS") {
   return new Response("ok", { headers: corsHeaders })
 }
 
-// 2. 15초 이내 재접근 시 서울시 API 호출을 우회하고 고속 DB 캐시 반환
+// 2. 15초 이내 재접근 시 서울시 API 호출을 우회하고 DB 캐시 반환
 if (snapshot && snapshot.updated_at) {
   const timeDiff = (new Date().getTime() - new Date(snapshot.updated_at).getTime()) / 1000;
   if (timeDiff < 15) {

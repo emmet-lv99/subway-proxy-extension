@@ -46,7 +46,7 @@
                                                         │
                                                         ▼
                                              [Upsert to Supabase DB]
-
+```
 ---
 
 ## 💻 Code Structure & Logic Highlight

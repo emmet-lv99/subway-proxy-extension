@@ -3,13 +3,124 @@
   <head>
     <meta charset="UTF-8" />
     <title>퇴근길 2호선 설정</title>
-    <link rel="stylesheet" href="./css/popup.css" />
+    <style>
+      body {
+        width: 300px;
+        padding: 15px;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 14px;
+        margin: 0;
+      }
+      h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #333;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 6px;
+      }
+      .input-text {
+        width: 93%;
+        padding: 6px;
+        font-size: 13px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .radio-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 4px;
+      }
+      .days-container {
+        display: flex;
+        justify-content: space-between;
+      }
+      .day-checkbox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .time-select-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      select {
+        padding: 5px;
+        font-size: 13px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        width: 100%;
+        padding: 9px;
+        background-color: #3ecf8e;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #2eb875;
+      }
+      .status {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #2eb875;
+        text-align: center;
+        height: 15px;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
-    <h3>🚃 알림 모니터링 설정</h3>
+    <h3>알림 모니터링 설정</h3>
 
     <div class="form-group">
-      <label>감시 요일 선택</label>
+      <label for="station-name">퇴근역 이름</label>
+      <input
+        type="text"
+        id="station-name"
+        class="input-text"
+        placeholder="예: 강남 (역 자 제외)"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="target-offset">감시 범위 (정거장 전)</label>
+      <select id="target-offset" style="width: 100%">
+        <option value="1">1정거장 전 열차 감시</option>
+        <option value="2" selected>2정거장 전 열차 감시</option>
+        <option value="3">3정거장 전 열차 감시</option>
+        <option value="4">4정거장 전 열차 감시</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>운행 방향</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="updn-line" value="0" checked />
+          내선 (상행)
+        </label>
+        <label>
+          <input type="radio" name="updn-line" value="1" />
+          외선 (하행)
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>감시 요일</label>
       <div class="days-container">
         <label class="day-checkbox">
           <input type="checkbox" name="day" value="1" checked />
@@ -43,18 +154,19 @@
     </div>
 
     <div class="form-group">
-      <label>감시 시간대 설정</label>
+      <label>감시 시간대</label>
       <div class="time-select-container">
         <select id="start-hour">
-          <option value="17" selected>17시 (오후 5시)</option>
+          <option value="17">17시 (오후 5시)</option>
           <option value="18">18시 (오후 6시)</option>
-          <option value="19">19시 (오후 7시)</option>
+          <option value="19" selected>19시 (오후 7시)</option>
         </select>
         <span>부터</span>
         <select id="end-hour">
-          <option value="19">19시 (오후 7시)</option>
-          <option value="20" selected>20시 (오후 8시)</option>
+          <option value="20">20시 (오후 8시)</option>
           <option value="21">21시 (오후 9시)</option>
+          <option value="22" selected>22시 (오후 10시)</option>
+          <option value="23" selected>23시 (오후 11시)</option>
         </select>
         <span>까지</span>
       </div>

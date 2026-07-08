@@ -33,17 +33,19 @@
 
 ## ⚙️ Data Pipeline Diagram
 
-[Chrome Extension (Client)]
-│ (15s Loop inside Time-Window)
-▼
+```text
+[Chrome Extension (Client)] 
+         │ 
+         │ (15s Loop inside Time-Window)
+         ▼
 [Supabase Edge Function (quick-api)]
-│
-├─── [Cache Hit (timeDiff < 15s)] ──▶ [Supabase DB Snapshot] (Fast Return)
-│
-└─── [Cache Miss (timeDiff >= 15s)] ──▶ [서울시 오픈 API] (Fresh Fetch)
-│
-▼
-[Upsert to Supabase DB]
+         │
+         ├─── [Cache Hit (timeDiff < 15s)] ──▶ [Supabase DB Snapshot] (Fast Return)
+         │
+         └─── [Cache Miss (timeDiff >= 15s)] ──▶ [서울시 오픈 API] (Fresh Fetch)
+                                                        │
+                                                        ▼
+                                             [Upsert to Supabase DB]
 
 ---
 

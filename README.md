@@ -34,18 +34,18 @@
 ## ⚙️ Data Pipeline Diagram
 
 ```text
-[Chrome Extension (Client)] 
+[크롬 익스텐션 (클라이언트)] 
          │ 
-         │ (15s Loop inside Time-Window)
+         │ (설정한 퇴근 시간대 내에서 15초 주기로 반복 호출)
          ▼
-[Supabase Edge Function (quick-api)]
+[Supabase 엣지 펑션 (프록시 서버)]
          │
-         ├─── [Cache Hit (timeDiff < 15s)] ──▶ [Supabase DB Snapshot] (Fast Return)
+         ├─── [캐시 히트 : 최종 동기화 후 15초 미만] ──▶ [Supabase DB 스냅샷 데이터] (즉시 고속 반환)
          │
-         └─── [Cache Miss (timeDiff >= 15s)] ──▶ [서울시 오픈 API] (Fresh Fetch)
-                                                        │
-                                                        ▼
-                                             [Upsert to Supabase DB]
+         └─── [캐시 미스 : 최종 동기화 후 15초 이상] ──▶ [서울시 오픈 API 서버] (실시간 데이터 조회)
+                                                                 │
+                                                                 ▼
+                                                    [새로운 최신 데이터 DB에 갱신]
 ```
 ---
 

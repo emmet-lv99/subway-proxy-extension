@@ -102,20 +102,14 @@ self.ENV = {
 * 본 레포지토리를 클론합니다.
 
 * 크롬 브라우저 주소창에 chrome://extensions/를 입력하여 이동합니다.
-
 * 우측 상단의 '개발자 모드'를 활성화합니다.
-
 * '압축해제된 확장 프로그램을 로드' 버튼을 눌러 프로젝트 루트 폴더를 선택합니다.
-
 
 ### 🛠️ Infra Structure Setup (For Self-Hosting)
 1. Database Table 생성
 * Supabase Table Editor를 통해 아래 구조의 테이블을 생성합니다.
-
 * Table Name: subway_route_snapshots
-
 * Columns:
-
   * subway_nm (text, Primary Key) : 감시 노선 기준점 (예: "2호선")
   * realtimePositionList (jsonb) : 데이터 스냅샷 배열
   * updated_at (timestamptz) : 캐시 만료 판별용 타임스탬프
@@ -123,12 +117,9 @@ self.ENV = {
 
 2. Supabase Edge Function 배포 및 환경 변수 등록
 * Supabase 콘솔에서 quick-api 이름으로 새로운 Edge Function을 생성하고 코드를 적용합니다.
-
 * Function Settings -> Secrets 메뉴에 SEOUL_API_KEY 이름으로 서울 데이터 광장에서 발급받은 본인의 API Key를 등록합니다.
 
-
 ### 🛒 Production Release Justification
-
 * 본 프로젝트는 크롬 웹 스토어의 Manifest V3 보안 및 권한 최소화 가이드라인을 엄격히 준수합니다.
 * alarms: 서비스 워커의 백그라운드 영속성 유지 및 타임 윈도우 기반 정밀 스케줄러 제어 목적
 * notifications: 유저 커스텀 매칭 열차 진입 시 실시간 데스크톱 푸시 알림 목적

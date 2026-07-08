@@ -72,7 +72,7 @@ const USER_SETTING = {
   targetStationOffset: 2, // 감시할 정거장 수 (예: 2정거장 전 열차 감시)
   updnLine: "1", // "0": 내선/상행, "1": 외선/하행
   peakStartHour: 19, // "나는 5시부터 퇴근 준비해!" (오후 5시)
-  peakEndHour: 20, // "7시까지만 촘촘하게 감시해줘" (오후 7시)
+  peakEndHour: 22, // "7시까지만 촘촘하게 감시해줘" (오후 7시)
   monitoringDays: [1, 2, 3, 4, 5, 6], // 요일 번호 (0: 일, 1: 월 ... 6: 토) -> "난 토요일도 출근해!"
 }
 

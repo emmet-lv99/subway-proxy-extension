@@ -1,12 +1,68 @@
 <!doctype html>
-<html>
+<html lang="ko">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+    <title>퇴근길 2호선 설정</title>
     <link rel="stylesheet" href="./css/popup.css" />
-    <link rel="stylesheet" href="./css/reset.css" />
   </head>
   <body>
-    <h3>Adaptive Track 2</h3>
-    <p>백그라운드 감시 중...</p>
+    <h3>🚃 알림 모니터링 설정</h3>
+
+    <div class="form-group">
+      <label>감시 요일 선택</label>
+      <div class="days-container">
+        <label class="day-checkbox">
+          <input type="checkbox" name="day" value="1" checked />
+          월
+        </label>
+        <label class="day-checkbox">
+          <input type="checkbox" name="day" value="2" checked />
+          화
+        </label>
+        <label class="day-checkbox">
+          <input type="checkbox" name="day" value="3" checked />
+          수
+        </label>
+        <label class="day-checkbox">
+          <input type="checkbox" name="day" value="4" checked />
+          목
+        </label>
+        <label class="day-checkbox">
+          <input type="checkbox" name="day" value="5" checked />
+          금
+        </label>
+        <label class="day-checkbox">
+          <input type="checkbox" name="day" value="6" />
+          토
+        </label>
+        <label class="day-checkbox">
+          <input type="checkbox" name="day" value="0" />
+          일
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>감시 시간대 설정</label>
+      <div class="time-select-container">
+        <select id="start-hour">
+          <option value="17" selected>17시 (오후 5시)</option>
+          <option value="18">18시 (오후 6시)</option>
+          <option value="19">19시 (오후 7시)</option>
+        </select>
+        <span>부터</span>
+        <select id="end-hour">
+          <option value="19">19시 (오후 7시)</option>
+          <option value="20" selected>20시 (오후 8시)</option>
+          <option value="21">21시 (오후 9시)</option>
+        </select>
+        <span>까지</span>
+      </div>
+    </div>
+
+    <button id="save-btn">설정 저장하기</button>
+    <div id="status-msg" class="status"></div>
+
+    <script src="popup.js"></script>
   </body>
 </html>

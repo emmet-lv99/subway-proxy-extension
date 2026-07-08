@@ -280,8 +280,7 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
 const showChromeNotification = (trainNo, stationName, statusText) => {
   chrome.notifications.create({
     type: "basic",
-    iconUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHcoC1Vf-DNLzYsBkbGaBdVEHTk1AhxeEfgaJguZgz-XqWAuwnmJ4gkxPA&s=10",
+    iconUrl: "./assets/line2.png",
     title: "🚃 퇴근 지하철 타이밍 포착!",
     message: `${trainNo}번 열차가 현재 [${stationName}역] ${statusText}! 지금 짐 싸서 출발하세요! 🏃‍♂️💨`,
     priority: 2,

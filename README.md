@@ -69,6 +69,8 @@ function manageSchedulerGate() {
     chrome.alarms.clear("subway-polling");
   }
 }
+````
+
 🧠 Backend-side: 15초 방어막 온디맨드 엣지 프록시 (index.ts)
 클라이언트의 크로스 오리진 요청에 대응하는 CORS 헤더 방어와 데이터 일관성을 지키는 아토믹한 캐시 만료 검증 로직입니다.
 

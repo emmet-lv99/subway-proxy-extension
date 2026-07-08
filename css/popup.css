@@ -1,9 +1,8 @@
 body {
-  width: 280px;
+  width: 300px;
   padding: 15px;
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
   margin: 0;
 }
@@ -18,7 +17,19 @@ h3 {
 .form-group label {
   display: block;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+}
+.input-text {
+  width: 93%;
+  padding: 6px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.radio-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 4px;
 }
 .days-container {
   display: flex;
@@ -37,12 +48,14 @@ h3 {
   gap: 5px;
 }
 select {
-  padding: 4px;
+  padding: 5px;
   font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 button {
   width: 100%;
-  padding: 8px;
+  padding: 9px;
   background-color: #3ecf8e;
   color: white;
   border: none;
@@ -59,4 +72,5 @@ button:hover {
   color: #2eb875;
   text-align: center;
   height: 15px;
+  font-weight: bold;
 }

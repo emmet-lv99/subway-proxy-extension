@@ -1,1 +1,1 @@
-# 🚃 Subway Smart Alarm (Chrome Extension)
+# 🚃 2호선 알리미 (크롬 익스텐션)

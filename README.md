@@ -74,15 +74,21 @@ function manageSchedulerGate() {
 ````
 
 ### 🧠 Backend-side: 15초 방어막 온디맨드 엣지 프록시
-클라이언트의 크로스 오리진 요청에 대응하는 CORS 헤더 방어와 데이터 일관성을 지키는 캐시 만료 검증 로직입니다.
+익스텐션의 크로스 오리진 요청을 허용하는 CORS 헤더 설정과 데이터 일관성을 지키는 캐시 만료 검증 로직입니다.
 
-````TypeScript
-// 15초 이내 재접근 시 서울시 API 우회 및 고속 캐시 반환
+```typescript
+// 1. 브라우저의 CORS 예비 요청(OPTIONS) 프리패스 처리
+if (req.method === "OPTIONS") {
+  return new Response("ok", { headers: corsHeaders })
+}
+
+// 2. 15초 이내 재접근 시 서울시 API 호출을 우회하고 고속 DB 캐시 반환
 if (snapshot && snapshot.updated_at) {
   const timeDiff = (new Date().getTime() - new Date(snapshot.updated_at).getTime()) / 1000;
   if (timeDiff < 15) {
     return new Response(JSON.stringify({ realtimePositionList: snapshot.realtimePositionList }), {
-      status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" }
+      status: 200, 
+      headers: { ...corsHeaders, "Content-Type": "application/json" } // CORS 허용 헤더 주입
     });
   }
 }

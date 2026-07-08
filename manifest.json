@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Subway Proxy Extension",
+  "version": "1.0.0",
+  "description": "Supabase 프록시 레이어를 활용한 2호선 실시간 퇴근 알리미",
+  "permissions": ["alarms", "notifications"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "host_permissions": ["https://*.supabase.co/*"]
+}

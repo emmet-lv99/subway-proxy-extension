@@ -1,0 +1,10 @@
+body {
+  width: 200px;
+  padding: 10px;
+  font-family: sans-serif;
+}
+h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: #2ecc71;
+}

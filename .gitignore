@@ -1,0 +1,48 @@
+# =========================================================================
+# 🚨 [CRITICAL] Security & Credentials (보안 및 자격 증명 - 절대 업로드 금지)
+# =========================================================================
+config.js
+config.local.js
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =========================================================================
+# 📦 Dependency Directories (의존성 패키지 관련)
+# =========================================================================
+node_modules/
+jspm_packages/
+web_modules/
+
+# =========================================================================
+# 🛠️ Development / OS Garbage Files (운영체제 및 에디터 찌꺼기)
+# =========================================================================
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+desktop.ini
+
+# IDE / Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# =========================================================================
+# 🚀 Production / Build Outputs (만약 Vite나 빌드 도구를 쓰신다면 제외)
+# =========================================================================
+dist/
+build/
+out/
+.supabase/

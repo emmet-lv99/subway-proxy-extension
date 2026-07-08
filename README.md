@@ -119,6 +119,96 @@ self.ENV = {
 
 2. Supabase Edge Function 배포 및 환경 변수 등록
 * Supabase 콘솔에서 quick-api 이름으로 새로운 Edge Function을 생성하고 코드를 적용합니다.
+  ````javascript
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
+
+const SEOUL_API_KEY = Deno.env.get("SEOUL_API_KEY") ?? ""
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? ""
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+
+const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+}
+
+async function fetchSeoulSubwayAPI() {
+  const url = `http://swopenAPI.seoul.go.kr/api/subway/${SEOUL_API_KEY}/json/realtimePosition/0/100/2호선`
+  const response = await fetch(url)
+  const json = await response.json()
+  return json.realtimePositionList || []
+}
+
+Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders })
+  }
+
+  try {
+    // 1. 기존 캐시 장부 조회
+    const { data: snapshot } = await supabaseAdmin
+      .from("subway_route_snapshots")
+      .select("*")
+      .eq("subway_nm", "2호선")
+      .maybeSingle()
+
+    const now = new Date()
+    
+    if (snapshot && snapshot.updated_at) {
+      const lastUpdatedAt = new Date(snapshot.updated_at)
+      const timeDiff = (now.getTime() - lastUpdatedAt.getTime()) / 1000
+
+      // 🚨 [Cache Hit] 15초 방어막 작동
+      if (timeDiff < 15) {
+        console.log(`♻️ [Cache Hit] ${timeDiff.toFixed(1)}초 조기 접근. DB 캐시 즉시 반환.`)
+        return new Response(
+          JSON.stringify({ realtimePositionList: snapshot.realtimePositionList }), 
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        )
+      }
+    }
+
+    // 2. 15초 만료 시 진짜 서울시 API 호출
+    console.log("🚀 [Cache Miss] 15초가 만료되어 실시간 서울시 API를 호출합니다.")
+    const freshPositionList = await fetchSeoulSubwayAPI()
+
+    // 🚨 [에러 해결 치트키] RPC나 복잡한 제약 조건 우회를 위해 수동 SQL 스타일 쿼리 실행 또는 매끄러운 덮어쓰기
+    // 데이터가 이미 있으면 지우고 새로 넣는 방식으로 제약 조건 제약을 원천 차단합니다.
+    if (snapshot) {
+      await supabaseAdmin
+        .from("subway_route_snapshots")
+        .delete()
+        .eq("subway_nm", "2호선")
+    }
+
+    const { error: insertError } = await supabaseAdmin
+      .from("subway_route_snapshots")
+      .insert({
+        subway_nm: "2호선",
+        realtimePositionList: freshPositionList,
+        updated_at: now.toISOString()
+      })
+
+    if (insertError) {
+      throw new Error(`DB 동기화 실패: ${insertError.message}`)
+    }
+
+    return new Response(
+      JSON.stringify({ realtimePositionList: freshPositionList }), 
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    )
+
+  } catch (err) {
+    console.error("💥 백엔드 파이프라인 장애 발생:", err.message)
+    return new Response(
+      JSON.stringify({ error: err.message }), 
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    )
+  }
+})
+  ````
 * Function Settings -> Secrets 메뉴에 SEOUL_API_KEY 이름으로 서울 데이터 광장에서 발급받은 본인의 API Key를 등록합니다.
 
 ### 🛒 Production Release Justification

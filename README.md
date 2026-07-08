@@ -78,12 +78,7 @@ function manageSchedulerGate() {
 * **CORS 설정:** 크롬 익스텐션(클라이언트)의 크로스 오리진 요청이 브라우저 보안 정책에 막히지 않도록 허용 헤더를 주입합니다.
 
 ```typescript
-// 1. 브라우저의 CORS 예비 요청(OPTIONS) 프리패스 처리
-if (req.method === "OPTIONS") {
-  return new Response("ok", { headers: corsHeaders })
-}
-
-// 2. 15초 이내 재접근 시 서울시 API 호출을 우회하고 DB 캐시 반환
+// 1. 15초 이내 재접근 시 서울시 API 호출을 우회하고 DB 캐시 반환
 if (snapshot && snapshot.updated_at) {
   const timeDiff = (new Date().getTime() - new Date(snapshot.updated_at).getTime()) / 1000;
   if (timeDiff < 15) {
@@ -92,6 +87,11 @@ if (snapshot && snapshot.updated_at) {
       headers: { ...corsHeaders, "Content-Type": "application/json" } // CORS 허용 헤더 주입
     });
   }
+}
+
+// 2. 브라우저의 CORS 예비 요청(OPTIONS) 프리패스 처리
+if (req.method === "OPTIONS") {
+  return new Response("ok", { headers: corsHeaders })
 }
 ````
 

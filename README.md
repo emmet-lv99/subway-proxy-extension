@@ -53,7 +53,7 @@
 
 ### 🧠 Client-side: Time-Window 기반 스케줄러 제어 로직
 
-1분 주기의 `CLOCK_WATCHER_ALARM`이 문지기 역할을 수행하며, 유저의 시간 조건 충족 여부에 따라 15초 추적 타이머를 온디맨드 형태로 스케줄링 제어합니다.
+유저의 시간 조건 충족 여부에 따라 15초 추적 타이머를 온디맨드 형태로 스케줄링 제어합니다.
 
 ````javascript
 function manageSchedulerGate() {

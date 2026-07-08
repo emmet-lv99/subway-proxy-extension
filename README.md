@@ -94,7 +94,7 @@ if (snapshot && snapshot.updated_at) {
 
 ````JavaScript
 // config.js
-self.ENV = {
+const ENV = {
   SUPABASE_URL: "YOUR_SUPABASE_PROJECT_URL",
   SUPABASE_ANON_KEY: "YOUR_SUPABASE_ANON_KEY"
 };

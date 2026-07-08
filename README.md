@@ -74,7 +74,7 @@ function manageSchedulerGate() {
 🧠 Backend-side: 15초 방어막 온디맨드 엣지 프록시 (index.ts)
 클라이언트의 크로스 오리진 요청에 대응하는 CORS 헤더 방어와 데이터 일관성을 지키는 아토믹한 캐시 만료 검증 로직입니다.
 
-TypeScript
+````TypeScript
 // 15초 이내 재접근 시 서울시 API 우회 및 고속 캐시 반환
 if (snapshot && snapshot.updated_at) {
   const timeDiff = (new Date().getTime() - new Date(snapshot.updated_at).getTime()) / 1000;
@@ -84,16 +84,20 @@ if (snapshot && snapshot.updated_at) {
     });
   }
 }
+````
+
 🏃‍♂️ Getting Started
 1. 환경 변수 설정 (Security Isolation)
 본 프로젝트는 자격 증명 유출 방지를 위해 환경 변수를 철저히 격리합니다. 루트 디렉토리에 config.js 파일을 생성하고 아래와 같이 본인의 Supabase 엔드포인트 정보를 입력합니다. (해당 파일은 .gitignore에 등록되어 레포지토리에 노출되지 않습니다.)
 
-JavaScript
+````JavaScript
 // config.js
 self.ENV = {
   SUPABASE_URL: "YOUR_SUPABASE_PROJECT_URL",
   SUPABASE_ANON_KEY: "YOUR_SUPABASE_ANON_KEY"
 };
+````
+
 2. 크롬 확장 프로그램 로드
 본 레포지토리를 클론합니다.
 

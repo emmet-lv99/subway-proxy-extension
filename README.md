@@ -175,7 +175,7 @@ Deno.serve(async (req) => {
     const freshPositionList = await fetchSeoulSubwayAPI()
 
     // 🚨 [에러 해결 치트키] RPC나 복잡한 제약 조건 우회를 위해 수동 SQL 스타일 쿼리 실행 또는 매끄러운 덮어쓰기
-    // 데이터가 이미 있으면 지우고 새로 넣는 방식으로 제약 조건 제약을 원천 차단합니다.
+    // 데이터가 이미 있으면 지우고 새로 넣는 방식.
     if (snapshot) {
       await supabaseAdmin
         .from("subway_route_snapshots")
